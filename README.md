@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Crisis Embedding models
 
 ## Data
@@ -6,12 +5,15 @@ The data set consists of all tweets collected by AIDR system till December, 2016
 
 **NOTE**: The models we trained are in text format, therefore, please load the model with an appropriate format setting.
 
-### Data cleaning:
+### Data cleaning/preprocessing:
 1. Lowercased
 2. Time pattern replaced with  DATE tag
 3. Digits pattern replaced with  DIGIT tag    
 4. Pattern replaced with  URL tag    
-
+5. Removed username started with @
+6. Removed single character
+7. Removed special characters
+8. Reduced repeated characters
 
 
 ## Word-vector training model and parameters:
@@ -44,19 +46,16 @@ Coming soon ....
 2. *data/crisis_data_preprocessed.tar.gz* - preprocessed tweets from raw tweets.
 3. *scripts/** - contans various scripts for preprocessing and training.
 4. *model/** - contains different trained model in text format.
+
 =======
 # crisis-tweets
 
 Few examples from tweets how we use shorthand forms:
 
-
-
 639482119295668224
 I c how it is
 
-639864522652655617	"Is it only Suffolk bc Becky and I are p sure ppl had like a month off in college lmao"	
+639864522652655617	"Is it only Suffolk bc Becky and I are p sure ppl had like a month off in college lmao"
 
 
 639616631367434240	"@SenWarren @stonehill_info so if you could do that for them how come you couldn't meet with small group from suffolk that had an appt w you?"
-
->>>>>>> 126dc08dcb21c0714526b8b43713861853d3559a

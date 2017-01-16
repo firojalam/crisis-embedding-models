@@ -18,6 +18,8 @@ Current home is http://github.com/brendano/ark-tweet-nlp and http://www.ark.cs.c
 There have been at least 2 other Java ports, but they are not in the lineage for the code here.
 
 Ported to Python by Myle Ott <myleott@gmail.com>.
+# Modified by Firoj Alam
+#
 """
 
 from __future__ import print_function
@@ -270,13 +272,15 @@ def simpleTokenize(text):
     text = re.sub(u"--&gt;&gt;|--|-|[\.]+","",text)
     
     #Replace single character
-    # 4. Normalizing username
+    # 4. Removed username started with @
     tweet_words = text.split(' ')
     for word in tweet_words:
         if word[0] == '@' and len(word) > 1:
             text.replace(word, "")
-        
-    
+        elif(len(word) == 1):
+            text.replace(word, "")
+    #5. Reduced repeated character     
+    text = re.sub(r"(.)\1\1+",r'\1\1', text.decode('utf-8'))
     
     
     splitPunctText = splitEdgePunct(text.strip())
