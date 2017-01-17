@@ -7,13 +7,14 @@ The data set consists of all tweets collected by AIDR system till December, 2016
 
 ### Data cleaning/preprocessing:
 1. Lowercased
-2. Time pattern replaced with  DATE tag
-3. Digits pattern replaced with  DIGIT tag    
-4. Pattern replaced with  URL tag    
-5. Removed username started with @
+2. Removed time pattern
+3. Removed digits pattern
+4. Removed URL pattern    
+5. Removed special characters and # symbol
 6. Removed single character
-7. Removed special characters
+7. Removed username started with @
 8. Reduced repeated characters
+9. Has not removed retweet
 
 
 ## Word-vector training model and parameters:

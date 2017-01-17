@@ -18,7 +18,8 @@ Current home is http://github.com/brendano/ark-tweet-nlp and http://www.ark.cs.c
 There have been at least 2 other Java ports, but they are not in the lineage for the code here.
 
 Ported to Python by Myle Ott <myleott@gmail.com>.
-# Modified by Firoj Alam
+
+# Modified by Firoj Alam - Jan, 2017
 #
 """
 
@@ -227,7 +228,7 @@ def timesplit(input_string):
     if timetoken(token):
         if info.jump(token):
             continue
-        batch = batch+" DATE"
+        batch = batch+""
     else:
         batch = batch+" "+token
   return dateParse(batch)
@@ -235,57 +236,69 @@ def timesplit(input_string):
 
 def digitParse(text):
     pat=re.compile("(DIGIT-DIGIT|DIGIT[ ]*)+".decode('utf-8'),re.UNICODE)
-    text = re.sub(pat,"DIGIT ",text)
+    text = re.sub(pat," ",text)
     return text
 
 def digit(text):
     #print (text)
-    text = re.sub(num,"DIGIT",text)
-    text = re.sub(numNum,"DIGIT",text)
+    text = re.sub(num,"",text)
+    text = re.sub(numNum,"",text)
     text = re.sub(numberWithCommas,"",text)
-    text = re.sub(numComb,"DIGIT",text)
+    text = re.sub(numComb,"",text)
     return digitParse(text)
 
 def urlParse(text):
     pat=re.compile(url.decode('utf-8'),re.UNICODE)
-    text = re.sub(pat,"URL",text)
+    text = re.sub(pat,"",text)
     return text
     
-# The main work of tokenizing a tweet.
+"""
+ The main work of tokenizing a tweet.
+ Modified by Firoj, for the preprocessing of the crisis data.
+"""
 def simpleTokenize(text):
+    
     try:
         text = text.decode("unicode-escape").encode("utf8").decode("utf8")
     except Exception as e:
         #print (text)
         print (e)
         pass
-    ## time pattern replaced with  DATE tag
-    text=timesplit(text.lower())
-    ## date pattern replaced with  DIGIT tag    
+    ## 1. Lowercased
+    text=text.lower();
+    ## 2. time pattern replaced with  DATE tag
+    text=timesplit(text)
+    ## 3. date pattern replaced with  DIGIT tag    
     text=digit(text)
-    ## URL pattern replaced with  URL tag    
+    ## 4. URL pattern replaced with  URL tag    
     text=urlParse(text)    
-    punc = u"[(),$%^&*+={}\[\]:\"|\'\~`<>/,¦!?½£¶¼©⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅟↉¤¿º;-#]+"
+    #
+    ## 5. Removed special characters and # symbol
+    punc = u"[#(),$%^&*+={}\[\]:\"|\~`<>/,¦!?½£¶¼©⅐⅑⅒⅓⅔⅕⅖⅗⅘⅙⅚⅛⅜⅝⅞⅟↉¤¿º;-]+"
     text = re.sub(punc,"",text)
     spchar=u"[\x98\x9C\x94\x89\x84\x88\x92\x8F]+"
     text = re.sub(spchar,"",text)
     text = re.sub(u"--&gt;&gt;|--|-|[\.]+","",text)
+    text = re.sub(u"\'"," ",text)
+    #print (text)    
     
-    #Replace single character
-    # 4. Removed username started with @
+    ## 6 and 7. Removed username started with @, single character
     tweet_words = text.split(' ')
-    for word in tweet_words:
-        if word[0] == '@' and len(word) > 1:
-            text.replace(word, "")
-        elif(len(word) == 1):
-            text.replace(word, "")
-    #5. Reduced repeated character     
-    text = re.sub(r"(.)\1\1+",r'\1\1', text.decode('utf-8'))
-    
-    
+    tWords=[]
+    for word in tweet_words:        
+        word=word.strip()
+        if ((len(word) > 1 and word[0] == '@')):
+            continue
+        elif(len(word) != 1):
+            tWords.append(word)
+    text=" ".join(tWords)
+                    
+    ## 8. Reduced repeated character     
+    text = re.sub(r"(.)\1\1+",r'\1\1', text.decode('utf-8'))        
     splitPunctText = splitEdgePunct(text.strip())
-
     textLength = len(splitPunctText)
+
+
     
     # BTO: the logic here got quite convoluted via the Scala porting detour
     # It would be good to switch back to a nice simple procedural style like in the Python version
@@ -327,7 +340,8 @@ def simpleTokenize(text):
     for i in range(len(bads)):
         zippedStr = addAllnonempty(zippedStr, splitGoods[i])
         zippedStr = addAllnonempty(zippedStr, bads[i])
-    zippedStr = addAllnonempty(zippedStr, splitGoods[len(bads)])        
+    zippedStr = addAllnonempty(zippedStr, splitGoods[len(bads)]) 
+    
     return zippedStr #text.split()
 
 def addAllnonempty(master, smaller):
@@ -370,4 +384,8 @@ def tokenizeRawTweetText(text):
     tokens = tokenize(normalizeTextForTagger(text))
     return tokens
 
-#tokenize("RT @HerculesHandy: When the boss ask if you'd work on Sunday and miss the walking dead marathon https://t.co/ftlfCQTm8z")
+"""
+Test
+"""    
+#x=tokenize("RT @HerculesHandy: When the #boss ask if you'd 823645786 12 Jan, 2016, a x b c u work on Sunday and miss the walking dead marathon https://t.co/ftlfCQTm8z")
+#print (x)
