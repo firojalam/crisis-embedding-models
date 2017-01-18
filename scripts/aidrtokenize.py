@@ -278,7 +278,7 @@ def simpleTokenize(text):
     text = re.sub(punc,"",text)
     spchar=u"[\x98\x9C\x94\x89\x84\x88\x92\x8F]+"
     text = re.sub(spchar,"",text)
-    text = re.sub(u"--&gt;&gt;|--|-|[\.]+","",text)
+    text = re.sub(u"--&gt;&gt;|--|-|[\.]+"," ",text)
     text = re.sub(u"\'"," ",text)
     #print (text)    
     
@@ -289,7 +289,9 @@ def simpleTokenize(text):
         word=word.strip()
         if ((len(word) > 1 and word[0] == '@')):
             continue
-        elif(len(word) != 1):
+        elif(word == "rt"):
+            continue        
+        elif(len(word) != 1):            
             tWords.append(word)
     text=" ".join(tWords)
                     

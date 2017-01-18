@@ -15,13 +15,14 @@ The data set consists of all tweets collected by AIDR system till December, 2016
 7. Removed username started with @
 8. Reduced repeated characters
 9. Has not removed retweet
+10. Removed stop words
 
 
 ## Word-vector training model and parameters:
 For training the Word-vector the training parameters are as follows:
 
 ```sh
-./word2vec -train $input_file -output $w2vFile -cbow 0 -size 400 -window 5 -alpha 0.025 -negative 5 -hs 1 -sample 1e-4 -threads 24 -binary 0 -iter 15 -min-count 5 -save-vocab $vocabFile
+./word2vec -train $input_file -output $w2vFile -cbow 0 -size 300 -window 5 -alpha 0.025 -negative 5 -hs 1 -sample 1e-4 -threads 24 -binary 0 -iter 15 -min-count 5 -save-vocab $vocabFile
 ```
 The trained model consists of a vocabulary with size: 7976291 (~7 millions) and 400 dimensional vector. The training file contains 5379772529 (~5 billions) words.
 The time required to train this model was 12 hours, 28 minutes.

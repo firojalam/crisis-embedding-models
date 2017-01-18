@@ -8,7 +8,7 @@ import smart_open
 logging.getLogger().setLevel(logging.INFO)
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 from nltk.corpus import stopwords
-stop_words = stopwords.words('english')
+stop_words = set(stopwords.words('english'))
 
 
 def processfile(inFile,outDirpath):

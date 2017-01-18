@@ -26,7 +26,7 @@ echo $w2vFile
 echo $input_file
 echo $vocabFile
 
-$HOME/tools/word2vec/bin/word2vec -train $input_file -output $w2vFile -cbow 0 -size 400 -window 5 -alpha 0.025 -negative 5 -hs 1 -sample 1e-4 -threads 24 -binary 0 -iter 15 -min-count 5 -save-vocab $vocabFile
+$HOME/tools/word2vec/bin/word2vec -train $input_file -output $w2vFile -cbow 0 -size 300 -window 5 -alpha 0.025 -negative 5 -hs 1 -sample 1e-4 -threads 24 -binary 0 -iter 15 -min-count 6 -save-vocab $vocabFile
 
 END=$(date +%s)
 DIFF=$((END-START))
