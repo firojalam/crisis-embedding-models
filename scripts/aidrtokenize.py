@@ -296,7 +296,7 @@ def simpleTokenize(text):
     text=" ".join(tWords)
                     
     ## 8. Reduced repeated character     
-    text = re.sub(r"(.)\1\1+",r'\1\1', text.decode('utf-8'))        
+    text = re.sub(r"(.)\1\1+",r'\1\1', text)        
     splitPunctText = splitEdgePunct(text.strip())
     textLength = len(splitPunctText)
 

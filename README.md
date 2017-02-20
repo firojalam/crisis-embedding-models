@@ -41,13 +41,51 @@ The vocabulary size of the trained model is 13054016 (~13 millions), which inclu
 ## Sentence-vector training model and parameters:
 Coming soon ....
 
+## Converting text format model to binary format:
 
+```python
+from gensim.models import word2vec
+
+model = word2vec.Word2Vec.load_word2vec_format('crisis_word_vector.txt', binary=False)
+model.save_word2vec_format('crisis_word_vector.bin', binary=True)
+
+```
+
+
+## How to use?:
+**Find the top ten most similar words of the word 'shelter'**
+
+```python
+from gensim.models import word2vec
+model = word2vec.Word2Vec.load_word2vec_format('crisis_word_vector.bin', binary=True)
+words=model.most_similar(positive=['shelter'], negative=[], topn=20)
+
+for w in words:
+  print w[0]
+# Few examples of most similar words
+needs
+somewhere
+safe
+needing
+gurdwara
+tonight
+opened
+give
+stranded
+offering
+temple
+unicef
+help
+#Finding the word vector
+vector = model['shelter']
+```
 
 ## Directory Structure:
 1. *data/crisis_tweets_raw_data.tar.gz* - raw tweets extracted from json file, which is collected by AIDR system over the time till December 2016.
 2. *data/crisis_data_preprocessed.tar.gz* - preprocessed tweets from raw tweets.
 3. *scripts/** - contans various scripts for preprocessing and training.
 4. *model/** - contains different trained model in text format.
+
 
 =======
 # crisis-tweets
