@@ -52,6 +52,8 @@ model.save_word2vec_format('crisis_word_vector.bin', binary=True)
 
 ```
 
+## Download:
+Please download the model from [CrisisNLP](http://crisisnlp.qcri.org/crisis_w2v_model/crisis_word_vector.tar.gz).
 
 ## How to use?:
 **Find the top ten most similar words of the word 'shelter'**
@@ -100,3 +102,29 @@ I c how it is
 
 
 639616631367434240	"@SenWarren @stonehill_info so if you could do that for them how come you couldn't meet with small group from suffolk that had an appt w you?"
+
+## Please Cite the Following Papers
+
+*Firoj Alam, Shafiq Joty, Muhammad Imran. Graph Based Semi-supervised Learning with Convolutional Neural Networks to Classify Crisis Related Tweets, International AAAI Conference on Web and Social Media (ICWSM), 2018, Stanford, California, USA.*
+```bib
+@inproceedings{alam2016bidirectional,
+  title={Graph Based Semi-supervised Learning with Convolutional Neural Networks to Classify Crisis Related Tweets},
+  author={Firoj Alam, Shafiq Joty, Muhammad Imran},
+  booktitle={International AAAI Conference on Web and Social Media (ICWSM)},
+  year={2018},
+  organization={AAAI}
+}
+```
+
+
+*Firoj Alam, Shafiq Joty, Muhammad Imran. Domain Adaptation with Adversarial Training and Graph Embeddings. 56th Annual Meeting of the Association for Computational Linguistics (ACL), 2018, Melbourne, Australia.*
+
+```bib
+@inproceedings{alam2016bidirectional,
+  title={Domain Adaptation with Adversarial Training and Graph Embeddings},
+  author={Firoj Alam, Shafiq Joty, Muhammad Imran},
+  booktitle={56th Annual Meeting of the Association for Computational Linguistics (ACL)},
+  year={2018},
+  organization={ACL}
+}
+```
